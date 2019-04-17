@@ -1,19 +1,28 @@
-# TodoMVC App Template
+##使用组件化完成 TodoMVC
 
-> Template used for creating [TodoMVC](http://todomvc.com) apps
+### 1. 安装 vue(引入)+配置
 
-![](https://github.com/tastejs/todomvc-app-css/raw/master/screenshot.png)
+### 2. 抽离组件
 
+    2.1 在js里 创建components文件夹,然后再创建以下三个文件
 
-## Getting started
+    - todo-head.js
+    - todo-list.js
+    - todo-footer.js
 
-- Read the [Application Specification](https://github.com/tastejs/todomvc/blob/master/app-spec.md) before touching the template.
+    2.2 在某个.js 文件里面注册对应的组件
 
-- Delete this file and rename `app-readme.md` to `readme.md` and fill it out.
+    Vue.component('todo-head',{
+    template:`把对应的结构copy过来`
+    })
 
-- Clone this repo and install the dependencies with [npm](https://npmjs.com) by running: `npm install`.
+    2.3 在 index.html 引入对应的注册组件代码
 
+    2.4 把组件名称当成标签使用
+    < todo-header ></ todo-header >
 
-## License
+### 3 列表展示
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br />This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" rel="dct:type">work</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://sindresorhus.com" property="cc:attributionName" rel="cc:attributionURL">TasteJS</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.
+     拿到父组件里的list,再传递给子组件
+     3.1 通过属性将父组件里的list传给子组件
+     3.2 通过子组件里的配置项props,拿到父组件传递过来的数据

@@ -6,7 +6,7 @@
 				{
 					id: 2,
 					name: "睡觉",
-					done: false
+					done: true
 				},
 				{
 					done: false,
@@ -17,11 +17,6 @@
 					name: "吃鸡",
 					done: false,
 					id: 5
-				},
-				{
-					name: "吃啥呀",
-					done: false,
-					id: 6
 				}
 			]
 		}
