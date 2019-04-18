@@ -14,11 +14,18 @@
 		<section class="todoapp" id="app">
 			<!-- 头部 -->
 			<!-- 引入头部组件 -->
-			<todo-header></todo-header>
+			<!-- 实现子传父, 通过自定义事件,绑定父组件中的方法,将数据发送给父组件,添加数据 -->
+			<todo-header @add-todo="pAddTodo"></todo-header>
 
 			<!-- 列表 -->
 			<!-- 引入列表组件 -->
-			<todo-list :list="list"></todo-list>
+			<!-- 实现父传子 通过属性绑定父组件中的数据 -->
+			<!-- 实现子传父 通过自定义事件,绑定父组件中的方法 -->
+			<todo-list
+				:list="list"
+				@del-todo="pDelTodo"
+				@edit-list="pEditList"
+			></todo-list>
 
 			<!-- 底部 -->
 			<!-- 引入底部组件 -->
