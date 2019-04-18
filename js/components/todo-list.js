@@ -10,7 +10,7 @@ Vue.component("todo-list", {
 							<label>{{item.name}}</label>
 							<button class="destroy" @click='delTodo(item.id)'></button>
 						</div>
-						<input class="edit" v-model='item.name' @keyup.enter='hideEdit'/>
+						<input class="edit" :value='item.name' @keyup.enter='hideEdit'/>
 					</li>
 				</ul>
 			</section>`,
@@ -18,7 +18,8 @@ Vue.component("todo-list", {
 	//添加一个editId,用于显示编辑状态
 	data() {
 		return {
-			editId: -1
+			editId: -1,
+			todoName: ""
 		};
 	},
 	methods: {
@@ -36,7 +37,11 @@ Vue.component("todo-list", {
 		hideEdit(e) {
 			//回车后,拿到该编辑框的内容,调用自定义事件,将数据传递给父组件
 			// console.log(e.target.value);
-			this.$emit("edit-list", e.target.value, this.editId);
+			//修改一个bug:子组件不应该直接修改父组件的数据,所以不能使用v-model双向绑定数据,应该使用单向绑定
+			//而是应该把修改后的值传给父组件, 让父组件修改
+			this.todoName = e.target.value;
+			//调用自定义方法,把拿到的值传递给父组件
+			this.$emit("edit-list", this.todoName, this.editId);
 
 			this.editId = -1;
 		}
