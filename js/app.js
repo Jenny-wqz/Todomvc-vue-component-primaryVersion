@@ -43,6 +43,45 @@
 				//根据传递过来的数据,更改list里的任务
 				this.list.find(item => item.id === id).name = newName;
 				// console.log(this.list);
+			},
+			// //清除已完成的任务数(子传父)
+			pClearCompleted() {
+				// console.log("父组件,收到要清除");
+				return (this.list = this.list.filter(item => !item.done));
+			},
+			//修改对应id的list的状态
+			pListStatus(statu, id) {
+				// console.log("父组件", status, id);
+				//根据传过来的数据,修改list
+				this.list.find(item => item.id == id).done = statu;
+			},
+			//实现全选
+			pIsCheckAll(statu) {
+				console.log("父组件收到", statu);
+
+				this.list.forEach(item => (item.done = statu));
+			}
+		},
+		computed: {
+			//底部显示与隐藏(父传子)
+			isFooterShow() {
+				return this.list.length > 0;
+			},
+			//显示未完成任务的条数(父传子)
+			pItemLeft() {
+				return this.list.filter(item => !item.done).length;
+			},
+			//clearCompleted按钮的显示与隐藏(父传子)
+			isClearCompletedShow() {
+				return this.list.some(item => item.done);
+			},
+			//实现全选与反选(父传子)
+			checkAll() {
+				return this.list.every(item => item.done);
+			},
+			//全选按钮的显示与隐藏
+			isCheckAllShow() {
+				return this.list.length > 0;
 			}
 		}
 	});

@@ -1,12 +1,12 @@
 //完成组件列表
 Vue.component("todo-list", {
 	template: `<section class="main">
-				<input id="toggle-all" class="toggle-all" type="checkbox" />
-				<label for="toggle-all">Mark all as complete</label>
+				<input id="toggle-all" class="toggle-all" type="checkbox" :checked='checkAll' @input='isCheckAll' />
+				<label for="toggle-all" v-show='isCheckAllShow'>Mark all as complete</label>
 				<ul class="todo-list">
 					<li :class="{completed:item.done, editing:item.id == editId}" v-for="item in list" :key='item.id' @dblclick='showEdit(item.id)'>
 						<div class="view">
-							<input class="toggle" type="checkbox" v-model='item.done' />
+							<input class="toggle" type="checkbox" :checked='item.done'  @input='statuChange($event,item.id)'/>
 							<label>{{item.name}}</label>
 							<button class="destroy" @click='delTodo(item.id)'></button>
 						</div>
@@ -14,7 +14,7 @@ Vue.component("todo-list", {
 					</li>
 				</ul>
 			</section>`,
-	props: ["list"],
+	props: ["list", "checkAll", "isCheckAllShow"],
 	//添加一个editId,用于显示编辑状态
 	data() {
 		return {
@@ -44,6 +44,19 @@ Vue.component("todo-list", {
 			this.$emit("edit-list", this.todoName, this.editId);
 
 			this.editId = -1;
+		},
+		//获取多选框的状态,并发送给父组件,让父组件修改
+		statuChange(e, id) {
+			// console.log(e.target.checked);
+			// this.checked = e.target.checked;
+			//在这里触发自定义事件,发送数据给父组件
+			this.$emit("list-status", e.target.checked, id);
+		},
+		//是否选中全选(子传父)
+		isCheckAll(e) {
+			console.log("选中了", e.target.checked);
+			//在这里触发自定义事件,把数据发送给父组件
+			this.$emit("is-check-all", e.target.checked);
 		}
 	}
 });

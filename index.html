@@ -25,11 +25,20 @@
 				:list="list"
 				@del-todo="pDelTodo"
 				@edit-list="pEditList"
+				@list-status="pListStatus"
+				:check-all="checkAll"
+				@is-check-all="pIsCheckAll"
+				:is-check-all-show="isCheckAllShow"
 			></todo-list>
 
 			<!-- 底部 -->
 			<!-- 引入底部组件 -->
-			<todo-footer></todo-footer>
+			<todo-footer
+				:item-left="pItemLeft"
+				@clear-completed="pClearCompleted"
+				:is-clear-completed-show="isClearCompletedShow"
+				v-show="isFooterShow"
+			></todo-footer>
 		</section>
 
 		<!-- Scripts here. Don't remove ↓ -->
